@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Markdown document for the Coursera Getting and Cleaning Data > Week 4 > Getting and Cleaning Data Course Project
 
+simply source('~/R/GandCDproj/run_analysis.R'), with the data contained under /UCI HAR Dataset
+
 1.  The tidy data set made at the end is "Tidy_Average", 1980 observations of 4 variables
 1b.  Tidy average contains columns  "Subject"  "Activity" "Metric" "Average" 
 1c.  The instructions for "run_analysis.R" says "Extracts only the measurements on the mean and standard deviation for each measurement.", which is confusing wording.  There are 66 data columns in the original features dataset with mean() or std() in name.  All of these were retained.
