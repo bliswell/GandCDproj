@@ -123,5 +123,5 @@ for (subject in unique(Full_Set$subject)){
         }
 }
 
-
+write.table(Tidy_Average,"Tidy_Average.txt",row.name = FALSE)
 
