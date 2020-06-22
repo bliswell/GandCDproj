@@ -74,7 +74,7 @@ colnames(Full_Set) <- c(as.character(features[,"V2"]),'subject','set_type','Acti
 print('pairing down to just mean and std columns, and set_type, subject, Activity_number')
 cols <-names(Full_Set)
 
-keep_cols_variables <- cols[c(grep('mean',cols),grep('std',cols))]
+keep_cols_variables <- cols[c(grep('mean\\()',cols),grep('std\\()',cols))]
 keep_cols <- c('set_type','subject','Activity_number',keep_cols_variables)
 Full_Set <- Full_Set[,keep_cols]
 
@@ -98,7 +98,7 @@ for (r in seq(dim(activity_labels)[1])){
 #5 From the data set in step 4, creates a second, independent tidy data set with the average
 print('#5 From the data set in step 4, creates a second, independent tidy data set with the average ')
 #  of each variable for each activity and each subject.
-Tidy_Average <- data.frame('Subject' = numeric(),'Activity' = character(),'Variable' = character(),'Average' = numeric(),stringsAsFactors=FALSE)
+Tidy_Average <- data.frame('Subject' = numeric(),'Activity' = character(),'Metric' = character(),'Average' = numeric(),stringsAsFactors=FALSE)
 
 cnt <-0
 for (subject in unique(Full_Set$subject)){
@@ -109,15 +109,16 @@ for (subject in unique(Full_Set$subject)){
         for (activity in unique(Temp_Set$Activity_Label)){
                 Temp_Set <- Temp_Set[Temp_Set$Activity_Label == activity,]
                 
-                
-                for (variable in keep_cols_variables){
-                        #Tidy_Average['Subj']
-                        cnt <- cnt+1
-                        Tidy_Average[cnt,"Subject"] <- subject
-                        Tidy_Average[cnt,"Activity"] <-activity
-                        Tidy_Average[cnt,"Variable"] <- variable
-                        Tidy_Average[cnt,"Average"] <- mean(Temp_Set[,variable])
-
+                if (dim(Temp_Set)[1] > 0){
+                        for (variable in keep_cols_variables){
+                                #Tidy_Average['Subj']
+                                cnt <- cnt+1
+                                Tidy_Average[cnt,"Subject"] <- subject
+                                Tidy_Average[cnt,"Activity"] <-activity
+                                Tidy_Average[cnt,"Metric"] <- variable
+                                Tidy_Average[cnt,"Average"] <- mean(Temp_Set[,variable])
+        
+                        }
                 }
         }
 }
