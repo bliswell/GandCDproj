@@ -89,6 +89,8 @@ for (r in seq(dim(activity_labels)[1])){
         ind10 <- Full_Set[,'Activity_number'] == activity_labels[r,'number']
         Full_Set[ind10,'Activity_Label'] = as.character(activity_labels[r,'label'])
 }
+ind <- c(length(names(Full_Set)),seq(2,length(names(Full_Set))))
+Full_Set <- Full_Set[,ind]
 
 
 #4 Appropriately labels the data set with descriptive variable names.
@@ -98,29 +100,35 @@ for (r in seq(dim(activity_labels)[1])){
 #5 From the data set in step 4, creates a second, independent tidy data set with the average
 print('#5 From the data set in step 4, creates a second, independent tidy data set with the average ')
 #  of each variable for each activity and each subject.
-Tidy_Average <- data.frame('Subject' = numeric(),'Activity' = character(),'Metric' = character(),'Average' = numeric(),stringsAsFactors=FALSE)
+#Tidy_Average <- data.frame('Subject' = numeric(),'Activity' = character(),'Metric' = character(),'Average' = numeric(),stringsAsFactors=FALSE)
+Tidy_Average <- Full_Set[0,]
+Tidy_Average <- subset(Tidy_Average, select = -c(Activity_number))
 
-cnt <-0
-for (subject in unique(Full_Set$subject)){
-        
-        Temp_Set <- Full_Set[Full_Set$subject == subject,]
-        
-        
-        for (activity in unique(Temp_Set$Activity_Label)){
-                Temp_Set <- Temp_Set[Temp_Set$Activity_Label == activity,]
+        cnt <-0
+        for (subject in unique(Full_Set$subject)){
                 
-                if (dim(Temp_Set)[1] > 0){
-                        for (variable in keep_cols_variables){
-                                #Tidy_Average['Subj']
+                Temp_Set_o <- Full_Set[Full_Set$subject == subject,]
+                
+                
+                for (activity in unique(Temp_Set_o$Activity_Label)){
+                        Temp_Set <- Temp_Set_o[Temp_Set_o$Activity_Label == activity,]
+                        
+                        if (dim(Temp_Set)[1] > 0){
+                                
+                                        
                                 cnt <- cnt+1
-                                Tidy_Average[cnt,"Subject"] <- subject
-                                Tidy_Average[cnt,"Activity"] <-activity
-                                Tidy_Average[cnt,"Metric"] <- variable
-                                Tidy_Average[cnt,"Average"] <- mean(Temp_Set[,variable])
-        
+                                # for (variable in keep_cols_variables){
+                                #         #Tidy_Average['Subj']
+                                for (variable in keep_cols_variables){
+                                         Tidy_Average[cnt,"subject"] <- subject
+                                         Tidy_Average[cnt,"Activity_Label"] <-activity
+                                         Tidy_Average[cnt,variable] <- mean(Temp_Set[,variable])#variable
+                                #         Tidy_Average[cnt,"Average"] <- mean(Temp_Set[,variable])
+                                # 
+                                # 
+                                        }
                         }
                 }
-        }
 }
 
 write.table(Tidy_Average,"Tidy_Average.txt",row.name = FALSE)

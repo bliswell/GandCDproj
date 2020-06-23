@@ -1,0 +1,53 @@
+---
+title: "codbook.md"
+author: "Brian Liswell"
+date: "6/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+Data objects of interest:
+
+- Tidy_Average: the goal dataset of the run_analysis.R script.  "Subject"  "Activity" "Metric" "Average"
+	- units: I don't know any units for rotation.  Acceleration is in 'g'.  
+- activity_labels: the various activities performed
+- features: 561 analytics performed on the different sensors measured. 
+- keep_col_variables: the 66 mean() and std() analytics desired for the assignment
+- Full_Set: 10299 observations of 70 variables, including the 
+
+
+The dataset includes the following files under the "UCI HAR Dataset" directory:
+=========================================
+- 'README.txt'
+
+- 'features_info.txt': Shows information about the variables used on the feature vector.
+
+- 'features.txt': List of all features.
+
+- 'activity_labels.txt': Links the class labels with their activity name.
+
+- 'train/X_train.txt': Training set.
+
+- 'train/y_train.txt': Training labels.
+
+- 'test/X_test.txt': Test set.
+
+- 'test/y_test.txt': Test labels.
+
+- 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
+
+- 'test/subject_test.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
+
+
+Inertial Signals are provided with the train and test sets.  They have no value.  They only serve to confuse.
+=========================================
+
+- 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis. 
+
+- 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration. 
+
+- 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
